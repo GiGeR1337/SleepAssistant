@@ -7,26 +7,30 @@
 </head>
 <body style="background: linear-gradient(to right, #e0f7fa, #fce4ec);">
 <div class="container-fluid d-flex vh-100 vw-100 justify-content-center align-items-center">
-    <form class="mb-5 p-4 bg-light rounded" method="post" th:action="@{/login}">
-        <h3>Log in</h3>
-        <div class="mb-3">
-            <label>
-                <input type="text" name="username" placeholder="Username">
-            </label><br>
+    <form class="mb-5 p-5 bg-light rounded shadow-lg" method="post" th:action="@{/login}" style="width: 400px;">
+        <h3 class="mb-4 text-center">Log in</h3>
+
+        <div th:if="${param.error}" class="alert alert-danger py-1 text-center mb-3">
+            <small>Invalid username or password</small>
         </div>
 
-        <div class="mb-3">
-            <label>
-                <input type="password" name="password" placeholder="Password">
-            </label><br>
+        <div th:if="${param.logout}" class="alert alert-success py-1 text-center mb-3">
+            <small>You have been logged out</small>
         </div>
 
-        <div class="mb-3">
+        <div class="mb-4">
+            <input type="text" name="username" placeholder="Username" class="form-control form-control-lg">
+        </div>
+
+        <div class="mb-4">
+            <input type="password" name="password" placeholder="Password" class="form-control form-control-lg">
+        </div>
+
+        <div class="mb-3 text-end">
             <a th:href="@{/register}"><small>I don't have an account</small></a>
         </div>
 
-        <button type="submit" class="btn btn-primary">Log in</button><br>
+        <button type="submit" class="btn btn-primary btn-lg w-100">Log in</button>
     </form>
-</div>
 </body>
 </html>

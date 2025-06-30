@@ -7,26 +7,25 @@
 </head>
 <body style="background: linear-gradient(to right, #e0f7fa, #fce4ec);">
 <div class="container-fluid d-flex vh-100 vw-100 justify-content-center align-items-center">
-    <form class="mb-5 p-4 bg-light rounded" th:object="${userDto}" method="post" th:action="@{/register}">
-        <h3>Register</h3>
-        <div class="mb-3">
-            <label>
-                <input name="username" placeholder="Username" type="text">
-            </label><br>
+    <form class="mb-5 p-5 bg-light rounded shadow-lg" th:object="${userDto}" method="post" th:action="@{/register}" style="width: 400px;">
+        <h3 class="mb-4 text-center">Register</h3>
+
+        <div class="mb-4">
+            <input th:field="*{username}" placeholder="Username" type="text" class="form-control form-control-lg">
+            <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="text-danger small mt-1"></div>
         </div>
 
-        <div class="mb-3">
-            <label>
-                <input name="email" placeholder="Email" type="text">
-            </label><br>
+        <div class="mb-4">
+            <input th:field="*{email}" placeholder="Email" type="email" class="form-control form-control-lg">
+            <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-danger small mt-1"></div>
         </div>
 
-        <div class="mb-3">
-            <label>
-                <input name="password" placeholder="Password" type="password">
-            </label><br>
+        <div class="mb-4">
+            <input th:field="*{password}" placeholder="Password" type="password" class="form-control form-control-lg">
+            <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-danger small mt-1"></div>
         </div>
-        <button class="btn btn-primary" type="submit">Register</button>
+
+        <button class="btn btn-primary btn-lg w-100" type="submit">Register</button>
     </form>
 </div>
 </body>

@@ -2,9 +2,11 @@ package com.example.sleepproject.Controllers;
 
 import com.example.sleepproject.DTOs.UserDto;
 import com.example.sleepproject.Services.UserService;
+import jakarta.validation.Valid;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,25 +20,31 @@ public class AuthController {
     }
 
     @GetMapping("/register")
-    public String showRegisterPage(){
+    public String showRegisterPage(Model model) {
+        model.addAttribute("userDto", new UserDto());
         return "register";
     }
 
     @GetMapping("/login")
-    public String showLoginPage(){
+    public String showLoginPage() {
         return "login-page";
     }
 
     @GetMapping("/home")
-    public String showHomePage(Authentication authentication, Model model){
+    public String showHomePage(Authentication authentication, Model model) {
         model.addAttribute("username", authentication.getName());
         return "index";
     }
 
     @PostMapping("/register")
-    public String registerUser(@ModelAttribute UserDto userDto, Model model){
-        model.addAttribute("userDto", userDto);
+    public String registerUser(@ModelAttribute("userDto") @Valid UserDto userDto,
+                               BindingResult result,
+                               Model model) {
+        if (result.hasErrors()) {
+            return "register";
+        }
+
         userService.registerUser(userDto);
-        return "redirect::/login";
+        return "redirect:/login";
     }
 }

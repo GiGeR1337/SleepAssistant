@@ -11,8 +11,10 @@
         <h1 class="mb-3 text-center">Welcome!</h1>
         <h2 class="mb-4 text-center" th:text="|Hello ${username}!|">Hello User!</h2>
         <p class="mb-4 text-center">You're successfully logged in.</p>
-        <div class="text-center">
-            <a class="btn btn-outline-primary" th:href="@{/login}">Logout</a>
+        <div class="d-flex justify-content-center mt-4">
+            <form th:action="@{/logout}" method="post" class="d-inline">
+                <button type="submit" class="btn btn-outline-primary">Logout</button>
+            </form>
         </div>
     </div>
 </div>
