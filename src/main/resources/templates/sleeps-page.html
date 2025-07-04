@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body style="background: linear-gradient(to right, #e0f7fa, #fce4ec);">
+<div class="container py-5">
+    <div class="bg-white bg-opacity-75 rounded p-4 shadow">
+        <h4 class="text-center mb-4">Your Sleeps</h4>
+        <table class="table table-bordered table-striped text-center">
+            <thead class="table-light">
+            <tr>
+                <th>Date</th>
+                <th>Bedtime</th>
+                <th>Wake Time</th>
+                <th>Caffeine</th>
+                <th>Screen Use</th>
+                <th>Quality</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="sleep : ${sleeps}">
+                <td th:text="${sleep.date}"></td>
+                <td th:text="${sleep.bedtime}"></td>
+                <td th:text="${sleep.wakeTime}"></td>
+                <td th:text="${sleep.caffeineBeforeBed ? 'Yes' : 'No'}"></td>
+                <td th:text="${sleep.screenBeforeBed ? 'Yes' : 'No'}"></td>
+                <td th:text="${sleep.sleepQuality.quality}"></td>
+                <td>
+                    <a th:href="@{'/sleeps/edit/' + ${sleep.idSleep}} " class="btn btn-outline-primary">Edit</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

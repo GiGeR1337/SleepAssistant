@@ -1,33 +1,18 @@
-package com.example.sleepproject.Models;
-
-import jakarta.persistence.*;
+package com.example.sleepproject.DTOs;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-@Entity
-@Table(name = "sleeps")
-public class Sleep {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idSleep;
+public class SleepDto {
     private LocalDate date;
     private LocalTime bedtime;
     private LocalTime wakeTime;
 
     private boolean caffeineBeforeBed;
     private boolean screenBeforeBed;
+    private Long idQuality;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
-
-    @ManyToOne
-    @JoinColumn(name = "sleep_quality_id")
-    private SleepQuality sleepQuality;
-
-    public Long getIdSleep() {
-        return idSleep;
+    public SleepDto() {
     }
 
     public LocalDate getDate() {
@@ -70,20 +55,11 @@ public class Sleep {
         this.screenBeforeBed = screenBeforeBed;
     }
 
-    public User getUser() {
-        return user;
+    public Long getIdQuality() {
+        return idQuality;
     }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public SleepQuality getSleepQuality() {
-        return sleepQuality;
-    }
-
-    public void setSleepQuality(SleepQuality sleepQuality) {
-        this.sleepQuality = sleepQuality;
+    public void setIdQuality(Long idQuality) {
+        this.idQuality = idQuality;
     }
 }
-

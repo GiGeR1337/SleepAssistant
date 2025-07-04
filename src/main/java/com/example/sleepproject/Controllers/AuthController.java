@@ -30,12 +30,6 @@ public class AuthController {
         return "login-page";
     }
 
-    @GetMapping("/home")
-    public String showHomePage(Authentication authentication, Model model) {
-        model.addAttribute("username", authentication.getName());
-        return "index";
-    }
-
     @PostMapping("/register")
     public String registerUser(@ModelAttribute("userDto") @Valid UserDto userDto,
                                BindingResult result,
