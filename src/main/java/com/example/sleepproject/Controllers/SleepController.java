@@ -3,10 +3,14 @@ package com.example.sleepproject.Controllers;
 import com.example.sleepproject.DTOs.SleepDto;
 import com.example.sleepproject.Services.SleepQualityService;
 import com.example.sleepproject.Services.SleepService;
+import jakarta.validation.Valid;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.script.Bindings;
 
 @Controller
 public class SleepController {
@@ -32,7 +36,14 @@ public class SleepController {
     }
 
     @PostMapping("/addSleep")
-    public String submitSleepForm(@ModelAttribute SleepDto sleepDto) {
+    public String submitSleepForm(@ModelAttribute @Valid SleepDto sleepDto,
+                                  BindingResult bindingResult,
+                                  Model model) {
+        if(bindingResult.hasErrors()) {
+            model.addAttribute("sleepQualities", sleepQualityService.findAll());
+            return "create-sleep";
+        }
+
         sleepService.addSleep(sleepDto);
         return "redirect:/home";
     }
@@ -48,7 +59,17 @@ public class SleepController {
     }
 
     @PostMapping("/sleeps/edit")
-    public String submitEditSleepForm(@RequestParam("idSleep") Long id, @ModelAttribute SleepDto sleepDto){
+    public String submitEditSleepForm(@RequestParam("idSleep") Long id,
+                                      @ModelAttribute @Valid SleepDto sleepDto,
+                                      BindingResult bindingResult,
+                                      Model model){
+        if(bindingResult.hasErrors()){
+            model.addAttribute("idSleep", id);
+            model.addAttribute("sleepQualities", sleepQualityService.findAll());
+
+            return "edit-sleep";
+        }
+
         sleepService.editSleep(id, sleepDto);
         return "redirect:/sleeps";
     }

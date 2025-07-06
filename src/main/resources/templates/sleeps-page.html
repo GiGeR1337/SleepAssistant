@@ -30,7 +30,7 @@
                 <td th:text="${sleep.screenBeforeBed ? 'Yes' : 'No'}"></td>
                 <td th:text="${sleep.sleepQuality.quality}"></td>
                 <td>
-                    <a th:href="@{'/sleeps/edit/' + ${sleep.idSleep}} " class="btn btn-outline-primary">Edit</a>
+                    <a class="btn btn-outline-primary" th:href="@{'/sleeps/edit/' + ${sleep.idSleep}} ">Edit</a>
                 </td>
             </tr>
             </tbody>

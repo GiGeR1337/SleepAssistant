@@ -13,10 +13,10 @@
         <p class="mb-4">You're successfully logged in.</p>
 
         <div class="d-flex justify-content-center gap-3">
-            <a th:href="@{/sleeps}" class="btn btn-outline-success">My Sleeps</a>
-            <a th:href="@{/addSleep}" class="btn btn-outline-info">Add Sleep</a>
-            <form th:action="@{/logout}" method="post" class="d-inline">
-                <button type="submit" class="btn btn-outline-danger">Logout</button>
+            <a class="btn btn-outline-success" th:href="@{/sleeps}">My Sleeps</a>
+            <a class="btn btn-outline-info" th:href="@{/addSleep}">Add Sleep</a>
+            <form class="d-inline" method="post" th:action="@{/logout}">
+                <button class="btn btn-outline-danger" type="submit">Logout</button>
             </form>
         </div>
     </div>
