@@ -1,50 +1,57 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+>
 <head>
     <meta charset="UTF-8">
     <title>Homepage</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body style="background: linear-gradient(to right, #e0f7fa, #fce4ec);">
+<div th:replace="fragments/header :: app-header"></div>
 <div class="container py-5">
     <div class="text-center mb-5">
-        <h1 class="mb-2">Welcome!</h1>
-        <h2 class="mb-3" th:text="|Hello ${username}!|">Hello User!</h2>
+        <h1 class="mb-3" th:text="|Welcome back, ${username}!|">Welcome back, User!</h1>
         <p class="mb-4">You're successfully logged in.</p>
-
-        <div class="d-flex justify-content-center gap-3">
-            <a class="btn btn-outline-success" th:href="@{/sleeps}">My Sleeps</a>
-            <a class="btn btn-outline-info" th:href="@{/addSleep}">Add Sleep</a>
-            <form class="d-inline" method="post" th:action="@{/logout}">
-                <button class="btn btn-outline-danger" type="submit">Logout</button>
-            </form>
-        </div>
     </div>
 
-    <div class="bg-white bg-opacity-75 rounded p-4 shadow">
-        <h4 class="text-center mb-4">Your 5 Most Recent Sleeps</h4>
-        <table class="table table-bordered table-striped text-center">
-            <thead class="table-light">
-            <tr>
-                <th>Date</th>
-                <th>Bedtime</th>
-                <th>Wake Time</th>
-                <th>Caffeine</th>
-                <th>Screen Use</th>
-                <th>Quality</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="sleep : ${sleeps}">
-                <td th:text="${sleep.date}"></td>
-                <td th:text="${sleep.bedtime}"></td>
-                <td th:text="${sleep.wakeTime}"></td>
-                <td th:text="${sleep.caffeineBeforeBed ? 'Yes' : 'No'}"></td>
-                <td th:text="${sleep.screenBeforeBed ? 'Yes' : 'No'}"></td>
-                <td th:text="${sleep.sleepQuality.quality}"></td>
-            </tr>
-            </tbody>
-        </table>
+    <div class="row">
+        <div class="col-md-8 mb-4">
+            <div class="bg-white bg-opacity-75 rounded p-4 shadow">
+                <h4 class="text-center mb-4">Your 5 Most Recent Sleeps</h4>
+                <table class="table table-bordered table-striped text-center">
+                    <thead class="table-light">
+                    <tr>
+                        <th>Date</th>
+                        <th>Bedtime</th>
+                        <th>Wake Time</th>
+                        <th>Caffeine</th>
+                        <th>Screen Use</th>
+                        <th>Quality</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="sleep : ${sleeps}">
+                        <td th:text="${sleep.date}"></td>
+                        <td th:text="${sleep.bedtime}"></td>
+                        <td th:text="${sleep.wakeTime}"></td>
+                        <td th:text="${sleep.caffeineBeforeBed ? 'Yes' : 'No'}"></td>
+                        <td th:text="${sleep.screenBeforeBed ? 'Yes' : 'No'}"></td>
+                        <td th:text="${sleep.sleepQuality.quality}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="bg-white bg-opacity-75 border rounded shadow p-4 h-100 d-flex flex-column justify-content-start">
+                <h4 class="text-center mb-3">Your Personalized Advice</h4>
+
+                <div class="border rounded px-3 py-3 bg-light text-dark">
+                    <p class="text-muted" th:text="${advice}"></p>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 </body>

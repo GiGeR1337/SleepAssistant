@@ -13,25 +13,22 @@
         <table class="table table-bordered table-striped text-center">
             <thead class="table-light">
             <tr>
-                <th>Date</th>
-                <th>Bedtime</th>
-                <th>Wake Time</th>
-                <th>Caffeine</th>
-                <th>Screen Use</th>
-                <th>Quality</th>
+                <th>Id</th>
+                <th>Username</th>
+                <th>Email</th>
                 <th>Action</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="sleep : ${sleeps}">
-                <td th:text="${sleep.date}"></td>
-                <td th:text="${sleep.bedtime}"></td>
-                <td th:text="${sleep.wakeTime}"></td>
-                <td th:text="${sleep.caffeineBeforeBed ? 'Yes' : 'No'}"></td>
-                <td th:text="${sleep.screenBeforeBed ? 'Yes' : 'No'}"></td>
-                <td th:text="${sleep.sleepQuality.quality}"></td>
+            <tr th:each="user : ${users}">
+                <td th:text="${user.idUser}"></td>
+                <td th:text="${user.username}"></td>
+                <td th:text="${user.email}"></td>
                 <td>
-                    <a class="btn btn-outline-primary" th:href="@{'/sleeps/edit/' + ${sleep.idSleep}} ">Edit</a>
+                    <form method="post" onsubmit="return confirm('Are you sure you want to delete this record?')"
+                          th:action="@{'/admin/users/' + ${user.idUser}}">
+                        <button class="btn btn-outline-danger" type="submit">Delete</button>
+                    </form>
                 </td>
             </tr>
             </tbody>

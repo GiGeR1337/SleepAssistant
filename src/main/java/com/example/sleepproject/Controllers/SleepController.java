@@ -10,8 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.script.Bindings;
-
 @Controller
 public class SleepController {
     private final SleepService sleepService;
@@ -23,7 +21,7 @@ public class SleepController {
     }
 
     @GetMapping("/sleeps")
-    public String getAllSleeps(Authentication authentication, Model model){
+    public String getAllSleeps(Authentication authentication, Model model) {
         model.addAttribute("sleeps", sleepService.getAllSleeps());
         return "sleeps-page";
     }
@@ -39,7 +37,7 @@ public class SleepController {
     public String submitSleepForm(@ModelAttribute @Valid SleepDto sleepDto,
                                   BindingResult bindingResult,
                                   Model model) {
-        if(bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors()) {
             model.addAttribute("sleepQualities", sleepQualityService.findAll());
             return "create-sleep";
         }
@@ -49,7 +47,7 @@ public class SleepController {
     }
 
     @GetMapping("/sleeps/edit/{id}")
-    public String showEditSleepForm(@PathVariable Long id, Model model){
+    public String showEditSleepForm(@PathVariable Long id, Model model) {
         SleepDto sleepDto = sleepService.getSleepDtoById(id);
 
         model.addAttribute("sleepDto", sleepDto);
@@ -62,8 +60,8 @@ public class SleepController {
     public String submitEditSleepForm(@RequestParam("idSleep") Long id,
                                       @ModelAttribute @Valid SleepDto sleepDto,
                                       BindingResult bindingResult,
-                                      Model model){
-        if(bindingResult.hasErrors()){
+                                      Model model) {
+        if (bindingResult.hasErrors()) {
             model.addAttribute("idSleep", id);
             model.addAttribute("sleepQualities", sleepQualityService.findAll());
 
@@ -75,7 +73,7 @@ public class SleepController {
     }
 
     @PostMapping("/sleeps/delete/{id}")
-    public String deleteSleep(@PathVariable Long id){
+    public String deleteSleep(@PathVariable Long id) {
         sleepService.deleteSleepById(id);
         return "redirect:/sleeps";
     }

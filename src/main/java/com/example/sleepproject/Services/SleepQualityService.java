@@ -5,8 +5,8 @@ import com.example.sleepproject.Repositories.SleepQualityRepository;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class SleepQualityService {
@@ -16,19 +16,19 @@ public class SleepQualityService {
         this.sleepQualityRepository = sleepQualityRepository;
     }
 
-    public Optional<SleepQuality> findByIdSleep(Long id){
+    public Optional<SleepQuality> findByIdSleep(Long id) {
         return sleepQualityRepository.findByIdQuality(id);
     }
 
-    public List<SleepQuality> findAll(){
+    public List<SleepQuality> findAll() {
         return sleepQualityRepository.findAll();
     }
 
     @PostConstruct
-    public void init(){
-        sleepQualityRepository.save(new SleepQuality("Excellent"));
-        sleepQualityRepository.save(new SleepQuality("Good"));
-        sleepQualityRepository.save(new SleepQuality("Bad"));
+    public void init() {
         sleepQualityRepository.save(new SleepQuality("Poor"));
+        sleepQualityRepository.save(new SleepQuality("Bad"));
+        sleepQualityRepository.save(new SleepQuality("Good"));
+        sleepQualityRepository.save(new SleepQuality("Excellent"));
     }
 }

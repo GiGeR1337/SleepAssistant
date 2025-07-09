@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<body>
+<div th:fragment="app-header">
+    <header class="d-flex justify-content-between align-items-center p-3" style="background: none;">
+        <a class="text-decoration-none fs-4 fw-semibold text-dark" th:href="@{/home}">Sleep Assistant</a>
+        <div class="d-flex gap-2">
+            <div sec:authorize="hasRole('ADMIN')">
+                <a class="btn btn-outline-dark" th:href="@{/admin/users}">All Users</a>
+            </div>
+            <a class="btn btn-outline-success" th:href="@{/sleeps}">My Sleeps</a>
+            <a class="btn btn-outline-info" th:href="@{/addSleep}">Add Sleep</a>
+            <form method="post" th:action="@{/logout}" class="d-inline">
+                <button class="btn btn-outline-danger" type="submit">Logout</button>
+            </form>
+        </div>
+    </header>
+</div>
+</body>
+</html>

@@ -12,6 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 @Service
@@ -46,7 +47,7 @@ public class SleepService {
         return sleepRepository.findAllByUser(user);
     }
 
-    public void addSleep(SleepDto sleepDto){
+    public void addSleep(SleepDto sleepDto) {
         Sleep sleep = new Sleep();
 
         applyDtoToSleep(sleepDto, sleep);
@@ -63,7 +64,7 @@ public class SleepService {
     }
 
     @Transactional
-    public void deleteSleepById(Long id){
+    public void deleteSleepById(Long id) {
         sleepRepository.deleteSleepByIdSleep(id);
     }
 

@@ -3,7 +3,6 @@ package com.example.sleepproject.Controllers;
 import com.example.sleepproject.DTOs.UserDto;
 import com.example.sleepproject.Services.UserService;
 import jakarta.validation.Valid;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;

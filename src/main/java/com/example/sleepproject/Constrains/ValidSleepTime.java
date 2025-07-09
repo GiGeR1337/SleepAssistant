@@ -13,6 +13,8 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ValidSleepTime {
     String message() default "Wake time must be after bedtime and not exceed 20 hours";
+
     Class<?>[] groups() default {};
+
     Class<? extends Payload>[] payload() default {};
 }

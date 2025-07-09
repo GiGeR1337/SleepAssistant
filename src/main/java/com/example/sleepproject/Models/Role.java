@@ -1,7 +1,9 @@
 package com.example.sleepproject.Models;
 
 import jakarta.persistence.*;
-import java.util.*;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "roles")
@@ -14,7 +16,7 @@ public class Role {
     private String name;
 
     @ManyToMany(mappedBy = "roles")
-    private Set<User> users = new HashSet<>();
+    private final Set<User> users = new HashSet<>();
 
     public Role() {
     }
