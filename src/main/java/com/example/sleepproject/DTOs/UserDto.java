@@ -1,6 +1,7 @@
 package com.example.sleepproject.DTOs;
 
 import com.example.sleepproject.Constrains.UniqueEmail;
+import com.example.sleepproject.Constrains.UniqueUsername;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -8,6 +9,7 @@ import jakarta.validation.constraints.Size;
 public class UserDto {
     @NotBlank(message = "Username must not be blank")
     @Size(min = 2, max = 32, message = "Username must be between 2 and 32 characters long")
+    @UniqueUsername(message = "This username is already in use")
     private String username;
     @Email
     @NotBlank(message = "Email must not be blank")
