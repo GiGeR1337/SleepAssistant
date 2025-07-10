@@ -2,8 +2,7 @@ package com.example.sleepproject.Models;
 
 import jakarta.persistence.*;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "sleeps")
@@ -11,9 +10,8 @@ public class Sleep {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idSleep;
-    private LocalDate date;
-    private LocalTime bedtime;
-    private LocalTime wakeTime;
+    private LocalDateTime bedtime;
+    private LocalDateTime wakeTime;
 
     private boolean caffeineBeforeBed;
     private boolean screenBeforeBed;
@@ -30,27 +28,19 @@ public class Sleep {
         return idSleep;
     }
 
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
-    public LocalTime getBedtime() {
+    public LocalDateTime getBedtime() {
         return bedtime;
     }
 
-    public void setBedtime(LocalTime bedtime) {
+    public void setBedtime(LocalDateTime bedtime) {
         this.bedtime = bedtime;
     }
 
-    public LocalTime getWakeTime() {
+    public LocalDateTime getWakeTime() {
         return wakeTime;
     }
 
-    public void setWakeTime(LocalTime wakeTime) {
+    public void setWakeTime(LocalDateTime wakeTime) {
         this.wakeTime = wakeTime;
     }
 

@@ -9,7 +9,7 @@ import java.util.List;
 
 @Repository
 public interface SleepRepository extends JpaRepository<Sleep, Long> {
-    List<Sleep> findTop5ByUserOrderByDateDesc(User user);
+    List<Sleep> findTop5ByUserOrderByBedtimeDesc(User user);
 
     List<Sleep> findAllByUser(User user);
 

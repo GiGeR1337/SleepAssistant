@@ -13,7 +13,6 @@
         <table class="table table-bordered table-striped text-center">
             <thead class="table-light">
             <tr>
-                <th>Date</th>
                 <th>Bedtime</th>
                 <th>Wake Time</th>
                 <th>Caffeine</th>
@@ -24,7 +23,6 @@
             </thead>
             <tbody>
             <tr th:each="sleep : ${sleeps}">
-                <td th:text="${sleep.date}"></td>
                 <td th:text="${sleep.bedtime}"></td>
                 <td th:text="${sleep.wakeTime}"></td>
                 <td th:text="${sleep.caffeineBeforeBed ? 'Yes' : 'No'}"></td>

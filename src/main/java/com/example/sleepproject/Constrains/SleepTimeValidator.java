@@ -5,27 +5,20 @@ import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
 import java.time.Duration;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 
 public class SleepTimeValidator implements ConstraintValidator<ValidSleepTime, SleepDto> {
     @Override
     public boolean isValid(SleepDto sleepDto, ConstraintValidatorContext context) {
-        LocalTime bedtime = sleepDto.getBedtime();
-        LocalTime wakeTime = sleepDto.getWakeTime();
+        LocalDateTime bedtime = sleepDto.getBedtime();
+        LocalDateTime wakeTime = sleepDto.getWakeTime();
 
-        if (bedtime == null || wakeTime == null) {
-            return true;
-        }
+        if (bedtime == null || wakeTime == null) return true;
 
-        long sleepMinutes;
-        if (wakeTime.isAfter(bedtime)) {
-            sleepMinutes = Duration.between(bedtime, wakeTime).toMinutes();
-        } else {
-            sleepMinutes = Duration.between(bedtime, LocalTime.MIDNIGHT).toMinutes()
-                    + Duration.between(LocalTime.MIN, wakeTime).toMinutes();
-        }
+        Duration duration = Duration.between(bedtime, wakeTime);
+        long minutes = duration.toMinutes();
 
-        return sleepMinutes > 0 && sleepMinutes < 20 * 60;
+        return minutes > 0 && minutes < 20 * 60;
     }
 }

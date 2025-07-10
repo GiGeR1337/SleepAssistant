@@ -34,7 +34,7 @@ public class SleepService {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
-        return sleepRepository.findTop5ByUserOrderByDateDesc(user);
+        return sleepRepository.findTop5ByUserOrderByBedtimeDesc(user);
     }
 
     public List<Sleep> getAllSleeps() {
@@ -78,7 +78,6 @@ public class SleepService {
     }
 
     private void applyDtoToSleep(SleepDto sleepDto, Sleep sleep) {
-        sleep.setDate(sleepDto.getDate());
         sleep.setBedtime(sleepDto.getBedtime());
         sleep.setWakeTime(sleepDto.getWakeTime());
         sleep.setCaffeineBeforeBed(sleepDto.isCaffeineBeforeBed());
@@ -95,7 +94,6 @@ public class SleepService {
                 .orElseThrow(() -> new IllegalArgumentException("Invalid sleep ID"));
 
         SleepDto dto = new SleepDto();
-        dto.setDate(sleep.getDate());
         dto.setBedtime(sleep.getBedtime());
         dto.setWakeTime(sleep.getWakeTime());
         dto.setCaffeineBeforeBed(sleep.isCaffeineBeforeBed());

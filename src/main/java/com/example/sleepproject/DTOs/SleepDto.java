@@ -2,52 +2,44 @@ package com.example.sleepproject.DTOs;
 
 import com.example.sleepproject.Constrains.ValidSleepTime;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PastOrPresent;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @ValidSleepTime
 public class SleepDto {
-    @NotNull(message = "Date must not be null")
-    @PastOrPresent(message = "Date must be in the past or present")
-    private LocalDate date;
-    @NotNull(message = "BedTime must not be null")
-    private LocalTime bedtime;
-    @NotNull(message = "WakeTime must not be null")
-    private LocalTime wakeTime;
+    @NotNull(message = "Bedtime must not be null")
+    private LocalDateTime bedtime;
+
+    @NotNull(message = "Wake time must not be null")
+    private LocalDateTime wakeTime;
 
     @NotNull(message = "Caffeine before bed must be specified")
     private boolean caffeineBeforeBed;
+
     @NotNull(message = "Screen before bed must be specified")
     private boolean screenBeforeBed;
+
     @NotNull(message = "Quality must be specified")
     private Long idQuality;
 
     public SleepDto() {
     }
 
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
-    public LocalTime getBedtime() {
+    public LocalDateTime getBedtime() {
         return bedtime;
     }
 
-    public void setBedtime(LocalTime bedtime) {
+    public void setBedtime(LocalDateTime bedtime) {
         this.bedtime = bedtime;
     }
 
-    public LocalTime getWakeTime() {
+    public LocalDateTime getWakeTime() {
         return wakeTime;
     }
 
-    public void setWakeTime(LocalTime wakeTime) {
+    public void setWakeTime(LocalDateTime wakeTime) {
         this.wakeTime = wakeTime;
     }
 

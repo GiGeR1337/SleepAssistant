@@ -41,7 +41,7 @@ public class AdviceService {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
-        List<Sleep> recentSleeps = sleepRepository.findTop5ByUserOrderByDateDesc(user);
+        List<Sleep> recentSleeps = sleepRepository.findTop5ByUserOrderByBedtimeDesc(user);
 
         double averageSleepQuality = recentSleeps.stream().mapToDouble(s -> s.getSleepQuality().getIdQuality()).average().orElse(0);
 
