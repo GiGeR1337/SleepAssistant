@@ -15,41 +15,54 @@ public class AdviceService {
     private final AdviceRepository adviceRepository;
     private final SleepRepository sleepRepository;
     private final UserRepository userRepository;
+    private final GeminiService geminiService;
 
-    public AdviceService(AdviceRepository adviceRepository, SleepRepository sleepRepository, UserRepository userRepository) {
+    public AdviceService(AdviceRepository adviceRepository, SleepRepository sleepRepository, UserRepository userRepository, GeminiService geminiService) {
         this.adviceRepository = adviceRepository;
         this.sleepRepository = sleepRepository;
         this.userRepository = userRepository;
+        this.geminiService = geminiService;
     }
 
-    private static String generateAdvice(double averageSleepQuality) {
-        String content;
-
-        if (averageSleepQuality == 0) {
-            content = "No sleep records";
-        } else if (averageSleepQuality > 0 && averageSleepQuality <= 2) {
-            content = "Your sleep quality has been low. Try reducing screen time and caffeine before bed.";
-        } else if (averageSleepQuality > 2 && averageSleepQuality <= 3.5) {
-            content = "Your sleep is average. Consider a consistent bedtime schedule.";
-        } else {
-            content = "Great job! Your sleep quality looks good. Keep up your healthy habits!";
+    private static String getPromptForRecentSleeps(List<Sleep> recentSleeps) {
+        StringBuilder sleepSummary = new StringBuilder();
+        for (Sleep sleep : recentSleeps) {
+            sleepSummary.append(String.format(
+                    "Bedtime: %s, Wake: %s, Quality (1-Poor, 2-Bad, 3-Good, 4-Excellent): %s, Caffeine: %s, Screen: %s\n",
+                    sleep.getBedtime(), sleep.getWakeTime(),
+                    sleep.getSleepQuality().getIdQuality(),
+                    sleep.isCaffeineBeforeBed(), sleep.isScreenBeforeBed()
+            ));
         }
-        return content;
+        return "Give me very short personalized advice for sleep improvement based on this data:\n" + sleepSummary;
     }
 
-    public String getAdviceForCurrentUser(String username) {
+    public void getAdviceForCurrentUser(String username) {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
         List<Sleep> recentSleeps = sleepRepository.findTop5ByUserOrderByBedtimeDesc(user);
+        if (recentSleeps.isEmpty()) {
+            return;
+        }
 
-        double averageSleepQuality = recentSleeps.stream().mapToDouble(s -> s.getSleepQuality().getIdQuality()).average().orElse(0);
+        String prompt = getPromptForRecentSleeps(recentSleeps);
+        String content = geminiService.getAdviceFromGemini(prompt);
+        adviceRepository.save(new Advice(content, user));
+    }
 
-        String content = generateAdvice(averageSleepQuality);
 
-        Advice advice = new Advice(content, user);
-        adviceRepository.save(advice);
+    public String getLastAdviceForCurrentUser(String username) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
-        return content;
+        List<Sleep> recentSleeps = sleepRepository.findTop5ByUserOrderByBedtimeDesc(user);
+        if (recentSleeps.isEmpty()) {
+            return "Please provide sleep information to receive advice.";
+        }
+
+        return adviceRepository.findTopByUserOrderByIdAdviceDesc(user)
+                .map(Advice::getContent)
+                .orElse("No advice available. Click the button to generate one.");
     }
 }
